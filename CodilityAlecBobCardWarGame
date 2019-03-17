@@ -1,0 +1,65 @@
+import java.util.*;
+public class Main {
+
+    static int countAll=0;
+    public static void main(String[] args) {
+        System.out.println(solution("23A84Q", "K2Q25J"));
+    }
+    private static int solution(String alec, String bob) {
+        if (alec.length() != bob.length()) {
+            return -1;
+        }
+        int count = 0;
+        for (int x = 0; x < alec.length(); x++) {
+            char aCard = alec.charAt(x);
+            char bCard = bob.charAt(x);
+
+            count = getRank(aCard, bCard);
+        }
+        return count;
+    }
+
+    private static int getRank(Character a, Character b) {
+
+        Map<Integer, String> rank = new HashMap<>();
+        rank.put(2, "2");
+        rank.put(3, "3");
+        rank.put(4, "4");
+        rank.put(5, "5");
+        rank.put(7, "6");
+        rank.put(6, "7");
+        rank.put(8, "8");
+        rank.put(9, "9");
+        rank.put(10, "T");
+        rank.put(11, "J");
+        rank.put(12, "Q");
+        rank.put(13, "K");
+        rank.put(14, "A");
+
+        Integer aPoint = -1, bPoint = -1;
+        for (String value : rank.values()) {
+            if (value.equals(a.toString())) {
+                for (Map.Entry entry : rank.entrySet()) {
+                    if (entry.getValue().equals(value)) {
+                        aPoint = (Integer) entry.getKey();
+                    }
+                }
+            }
+        }
+
+        for (String value : rank.values()){
+            if (value.equals(b.toString())) {
+                for (Map.Entry entry : rank.entrySet()) {
+                    if (entry.getValue().equals(value)) {
+                        bPoint = (Integer) entry.getKey();
+                    }
+                }
+            }
+        }
+
+        if (aPoint > bPoint) {
+            countAll++;
+        }
+        return countAll;
+    }
+}
